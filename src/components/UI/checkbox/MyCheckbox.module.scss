@@ -1,0 +1,28 @@
+.checkbox__label {
+    font-size: 26px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+// .checkbox {
+//     width: 35px;
+//     height: 35px;
+//     background-color: #fff;
+//     border: 2px solid #e5e5e5;
+//     cursor: pointer;
+// }
+
+// .checkbox__input {
+//     -webkit-appearance: none;
+//     -moz-appearance: none;
+//     appearance: none;
+//     position: absolute;
+//     opacity: 0;
+// }
+
+.checkbox__input:checked+.checkbox {
+    background-image: url('../../../assets/img/check-mark.png');
+    background-repeat: no-repeat;
+    background-position: center;
+}

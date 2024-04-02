@@ -1,4 +1,27 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .App {
   width: 1200px;
   margin: 0 auto;
+}
+
+.chart {
+  display: flex;
+  justify-content: space-between;
+}
+
+.chart__currency {
+  list-style: none;
+  width: 200px;
+  padding-top: 30px;
+}
+
+.chart__currencyItem {
+  margin-top: 10px;
 }
