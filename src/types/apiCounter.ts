@@ -6,7 +6,7 @@ export enum ApiCounterTypes {
     ADD_API = 'ADD_API'
 }
 
-export interface CommentsAction {
+export interface ApiCounterAction {
     type: ApiCounterTypes.ADD_API;
     payload: number,
 }

@@ -3,9 +3,10 @@ import classes from './App.module.scss';
 import LineChart from './components/charts/LineChart';
 import MyCheckbox from './components/UI/checkbox/MyCheckbox';
 import { CheckboxProps } from './types/myCheckbox';
+import { useTypedSelector } from './hooks/useTypedSelector';
 
 function App() {
-  const apiCount:number = 0;
+  const {count} = useTypedSelector(state => state.apiCounter);
   const rubKey:string = 'rub';
   const currencyArr:CheckboxProps[] = [
     {title: 'Евро', name: 'eur'}, 
@@ -77,7 +78,7 @@ function App() {
 
       </div>
 
-      <p className={classes.chart__apiNumber}>Число запросов API: {apiCount}</p>
+      <p className={classes.chart__apiNumber}>Число запросов API: {count}</p>
 
     </div>
   );

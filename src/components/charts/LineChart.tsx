@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './LineChart.module.scss';
 import {
     Chart as ChartJS,
@@ -13,8 +13,8 @@ import {
 
 import { Line } from 'react-chartjs-2';
 import {faker} from '@faker-js/faker';
-import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { fetchApi } from '../../store/action-creator/apiCounter';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,6 +26,10 @@ ChartJS.register(
 );
 
 const LineChart = () => {
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    dispatch(fetchApi())
+  }, [])
     const options = {
         responsive: true,
         plugins: {
@@ -70,12 +74,6 @@ const LineChart = () => {
           }
         ],
       };
-      const date = '2024-03-28';
-      const currencie = 'eur';
-      axios.get(`https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@${date}/v1/currencies/${currencie}.json`)
-      .then((response) => {
-        console.log(response.data)
-      })
       
     return (
         <div className={classes.lineChart__wrapper}>
