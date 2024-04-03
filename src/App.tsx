@@ -4,9 +4,12 @@ import LineChart from './components/charts/LineChart';
 import MyCheckbox from './components/UI/checkbox/MyCheckbox';
 import { CheckboxProps } from './types/myCheckbox';
 import { useTypedSelector } from './hooks/useTypedSelector';
+import { useDispatch } from 'react-redux';
+import { ChartLabelsTypes } from './types/chartLabels';
 
 function App() {
   const {count} = useTypedSelector(state => state.apiCounter);
+  const dispatch = useDispatch();
   const rubKey:string = 'rub';
   const currencyArr:CheckboxProps[] = [
     {title: 'Евро', name: 'eur'}, 
@@ -21,8 +24,12 @@ function App() {
     const currentYear = currentDate.getFullYear();
     const monthDay = currentDate.getDate();
     const weekDay = currentDate.getDay();
+    const currentMonth = currentDate.getMonth();
+    const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
 
-    let countMonthDay;
+    let countMonthDay: number;
+    let resultforChart: string[] = [];
+    let resultforFetch: string[] = [];
     if (weekDay > 1) {
       countMonthDay = monthDay - (weekDay - 1);
     } else if (weekDay === 0) {
@@ -33,8 +40,16 @@ function App() {
   
     let startDay = countMonthDay;
     let endDay = countMonthDay + 6;
-    setStartDay(`${currentYear}-${currentDate.getMonth() < 10 ? `0${currentDate.getMonth()}`: currentDate.getMonth()}-${startDay < 10 ? `0${startDay}` : startDay}`);
-    setEndDay(`${currentYear}-${currentDate.getMonth() < 10 ? `0${currentDate.getMonth()}`: currentDate.getMonth()}-${endDay < 10 ? `0${endDay}` : endDay}`);
+    setStartDay(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${startDay < 10 ? `0${startDay}` : startDay}`);
+    setEndDay(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${endDay < 10 ? `0${endDay}` : endDay}`);
+
+    for (let i = 0; i < 7; i++) {
+      resultforChart.push(`${countMonthDay + i} ${monthNames[currentMonth]}`);
+      resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
+      console.log(resultforFetch)
+    }
+    
+    dispatch({type: ChartLabelsTypes.ADD_LABELS, payload: resultforChart})
   }, []);
 
   const changeStartDay = (e: React.ChangeEvent<HTMLInputElement>) => {

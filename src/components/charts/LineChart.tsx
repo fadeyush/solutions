@@ -15,6 +15,7 @@ import { Line } from 'react-chartjs-2';
 import {faker} from '@faker-js/faker';
 import { useDispatch } from 'react-redux';
 import { fetchApi } from '../../store/action-creator/apiCounter';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -26,6 +27,7 @@ ChartJS.register(
 );
 
 const LineChart = () => {
+  const {labels} = useTypedSelector(state => state.chartLabels);
   const dispatch = useDispatch();
   useEffect(()=>{
     dispatch(fetchApi())
@@ -42,7 +44,6 @@ const LineChart = () => {
           },
         }
       };
-      const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
       const data = {
         labels,
         datasets: [
