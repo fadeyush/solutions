@@ -8,11 +8,11 @@ export interface DollarProps {
 }
 
 export enum DollarTypes {
-    CHANGE_LINE_STATE = 'CHANGE_LINE_STATE'
+    CHANGE_DOLLAR_LINE_STATE = 'CHANGE_DOLLAR_LINE_STATE'
 }
 
 interface DollarActionChecked {
-    type: DollarTypes.CHANGE_LINE_STATE;
+    type: DollarTypes.CHANGE_DOLLAR_LINE_STATE;
     payload: boolean,
 }
 

@@ -8,11 +8,11 @@ export interface EuroProps {
 }
 
 export enum EuroTypes {
-    CHANGE_LINE_STATE = 'CHANGE_LINE_STATE'
+    CHANGE_EURO_LINE_STATE = 'CHANGE_EURO_LINE_STATE'
 }
 
 interface EuroActionChecked {
-    type: EuroTypes.CHANGE_LINE_STATE;
+    type: EuroTypes.CHANGE_EURO_LINE_STATE;
     payload: boolean,
 }
 

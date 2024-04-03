@@ -7,9 +7,11 @@ const inittialState: DollarProps = {
 
 export const dollarReducer = (state = inittialState, action:DollarAction): DollarProps => {
     switch (action.type) {
-        case DollarTypes.CHANGE_LINE_STATE:
+        case DollarTypes.CHANGE_DOLLAR_LINE_STATE:
             return {...state, isDollarChecked: action.payload}
         default:
             return state
     }
 };
+
+export const addDollarAction = (payload: boolean) => { return {type: DollarTypes.CHANGE_DOLLAR_LINE_STATE, payload: payload}};

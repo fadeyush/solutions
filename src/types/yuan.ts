@@ -8,11 +8,11 @@ export interface YuanProps {
 }
 
 export enum YuanTypes {
-    CHANGE_LINE_STATE = 'CHANGE_LINE_STATE'
+    CHANGE_YUAN_LINE_STATE = 'CHANGE_YUAN_LINE_STATE'
 }
 
 interface YuanActionChecked {
-    type: YuanTypes.CHANGE_LINE_STATE;
+    type: YuanTypes.CHANGE_YUAN_LINE_STATE;
     payload: boolean,
 }
 

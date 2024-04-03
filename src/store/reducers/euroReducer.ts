@@ -7,9 +7,11 @@ const inittialState: EuroProps = {
 
 export const euroReducer = (state = inittialState, action:EuroAction): EuroProps => {
     switch (action.type) {
-        case EuroTypes.CHANGE_LINE_STATE:
+        case EuroTypes.CHANGE_EURO_LINE_STATE:
             return {...state, isEuroChecked: action.payload}
         default:
             return state
     }
 };
+
+export const addEuroAction = (payload: boolean) => { return {type: EuroTypes.CHANGE_EURO_LINE_STATE, payload: payload}};
