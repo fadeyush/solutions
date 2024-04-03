@@ -21,7 +21,6 @@ function App() {
     const monthDay = currentDate.getDate();
     const weekDay = currentDate.getDay();
 
-    let result = {startDate: '', endDate: ''};
     let countMonthDay;
     if (weekDay > 1) {
       countMonthDay = monthDay - (weekDay - 1);
@@ -49,8 +48,7 @@ function App() {
 
       <div className={classes.chart}>
 
-        <div className={classes.chart__wrapper}>
-
+        <div>
           <ul className={classes.chart__currency}>
             {currencyArr.map(currency =>
               <li key={currency.name} className={classes.chart__currencyItem}>
@@ -61,13 +59,20 @@ function App() {
 
           <ul className={classes.chart__date}>
             <li>
-              <input type="date" value={startDay} onChange={changeStartDay}/>
+            <label className={classes.chart__dateLabel}>
+              Дата с
+              <input className={classes.chart__dateInput} type="date" value={startDay} onChange={changeStartDay}/>
+            </label>
             </li>
             <li>
-              <input type="date" value={endDay} onChange={changeEndDay}/>
+              <label className={classes.chart__dateLabel}>
+                Дата по
+               <input className={classes.chart__dateInput} type="date" value={endDay} onChange={changeEndDay}/>
+              </label>
             </li>
           </ul>
         </div>
+
         <LineChart/>
 
       </div>

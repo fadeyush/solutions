@@ -18,10 +18,36 @@
 
 .chart__currency {
   list-style: none;
-  width: 200px;
+  width: 250px;
   padding-top: 45px;
 }
 
 .chart__currencyItem {
   margin-top: 10px;
+}
+
+.chart__date {
+  list-style: none;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.chart__dateLabel {
+  font-size: 22px;
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chart__dateInput {
+  padding: 5px;
+  font-size: 16px;
+}
+
+.chart__apiNumber {
+  margin-top: 30px;
+  font-size: 30px;
 }
