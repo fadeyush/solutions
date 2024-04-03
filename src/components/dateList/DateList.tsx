@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import classes from './DateList.module.scss';
 import { useDispatch } from 'react-redux';
 import { ChartLabelsTypes } from '../../types/chartLabels';
@@ -13,8 +13,8 @@ const DateList:FC = () => {
         const currentYear = currentDate.getFullYear();
         const monthDay = currentDate.getDate();
         const weekDay = currentDate.getDay();
-        const currentMonth = currentDate.getMonth();
-        const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+        const currentMonth = currentDate.getMonth() + 1;
+        const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
         let countMonthDay: number;
         let resultforChart: string[] = [];
@@ -35,9 +35,8 @@ const DateList:FC = () => {
         for (let i = 0; i < 7; i++) {
             resultforChart.push(`${countMonthDay + i} ${monthNames[currentMonth]}`);
             resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
-            console.log(resultforFetch)
+            // console.log(resultforFetch)
         }
-
         dispatch({type: ChartLabelsTypes.ADD_LABELS, payload: resultforChart})
     }, []);
     
@@ -47,6 +46,30 @@ const DateList:FC = () => {
     const changeEndDay = (e: React.ChangeEvent<HTMLInputElement>) => {
         setEndDay(e.target.value);
     }
+
+    useMemo(()=>{
+        const startDate = new Date(startDay);
+        const endDate = new Date(endDay);
+        let resultforChart: string[] = [];
+        let resultforFetch: string[] = [];
+        const date = new Date(startDate.getTime());
+        
+        const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
+        
+        const dates = [];
+        dates.push(new Date(date));
+        resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
+        date.setDate(date.getDate() + 1);
+
+        while (date <= endDate) {
+            
+            resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
+            dates.push(new Date(date));
+            date.setDate(date.getDate() + 1);
+    //     resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
+        }
+        dispatch({type: ChartLabelsTypes.ADD_LABELS, payload: resultforChart})
+    }, [startDay, endDay])
 
     return (
         <ul className={classes.chart__date}>

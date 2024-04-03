@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { CheckboxProps } from '../../types/myCheckbox';
 import classes from './CurrencyList.module.scss';
 import MyCheckbox from '../UI/checkbox/MyCheckbox';
