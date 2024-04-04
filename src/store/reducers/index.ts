@@ -1,13 +1,13 @@
 import { combineReducers } from "redux";
 import { apiCounterReducer } from "./apiCounterReducer";
-import { chartLabelsReducer } from "./chartLabelsReducer";
+import { charReducer } from "./chartReducer";
 import { euroReducer } from "./euroReducer";
 import { dollarReducer } from "./dollarReducer";
 import { yuanReducer } from "./yuanReducer";
 
 export const rootReducer = combineReducers({
     apiCounter: apiCounterReducer,
-    chartLabels: chartLabelsReducer,
+    chart: charReducer,
     euro: euroReducer,
     dollar: dollarReducer,
     yuan: yuanReducer,

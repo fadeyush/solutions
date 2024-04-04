@@ -26,16 +26,14 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const {labels} = useTypedSelector(state => state.chartLabels);
+  const {labels, dates} = useTypedSelector(state => state.chart);
   const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
   const {isDollarChecked, rubRatesDollar, dollarRate} = useTypedSelector(state => state.dollar);
   const {isYuanChecked, rubRatesYuan, yuanRate} = useTypedSelector(state => state.yuan);
   const dispatch = useDispatch();
 
-  console.log(rubRatesEuro)
-
   useEffect(()=>{
-    dispatch(fetchApi(euroRate))
+    dispatch(fetchApi(dates, euroRate))
   }, [])
   
     const options = {

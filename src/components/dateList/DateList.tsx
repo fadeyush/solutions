@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import classes from './DateList.module.scss';
 import { useDispatch } from 'react-redux';
-import { ChartLabelsTypes } from '../../types/chartLabels';
-
+import { ChartTypes } from '../../types/chart';
 const DateList:FC = () => {
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
@@ -35,9 +34,9 @@ const DateList:FC = () => {
         for (let i = 0; i < 7; i++) {
             resultforChart.push(`${countMonthDay + i} ${monthNames[currentMonth]}`);
             resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
-            // console.log(resultforFetch)
         }
-        dispatch({type: ChartLabelsTypes.ADD_LABELS, payload: resultforChart})
+        dispatch({type: ChartTypes.ADD_LABELS, payload: resultforChart})
+        dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
     }, []);
     
     const changeStartDay = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -64,7 +63,8 @@ const DateList:FC = () => {
             date.setDate(date.getDate() + 1);
     //     resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
         }
-        dispatch({type: ChartLabelsTypes.ADD_LABELS, payload: resultforChart})
+        dispatch({type: ChartTypes.ADD_LABELS, payload: resultforChart})
+        // dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
     }, [startDay, endDay])
 
     return (
