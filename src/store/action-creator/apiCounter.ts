@@ -5,7 +5,7 @@ import { EuroAction, EuroTypes } from "../../types/euro";
 import { getCurrencie } from "../../components/api/getCurrencie";
 import { DollarAction, DollarTypes } from "../../types/dollar";
 import { YuanAction, YuanTypes } from "../../types/yuan";
-export const fetchApi = (dates:any[], currencie:string) => {
+export const getChartValues = (dates:any[], currencie:string) => {
     return async (dispatch: Dispatch<ApiCounterAction | EuroAction | DollarAction | YuanAction>) => {
         try {
             let response;
@@ -19,11 +19,10 @@ export const fetchApi = (dates:any[], currencie:string) => {
                     dispatch({type: EuroTypes.ADD_EURO_RUB_RATE, payload: value}) : 
                     currencie === 'usd' ?
                     dispatch({type: DollarTypes.ADD_DOLLAR_RUB_RATE, payload: value}) :
-                    dispatch({type: YuanTypes.ADD_YUAN_RUB_RATE, payload: value})
+                    dispatch({type: YuanTypes.ADD_YUAN_RUB_RATE, payload: value});
+                    dispatch({type: ApiCounterTypes.ADD_API, payload: 1});
                 }
             });
-
-            dispatch({type: ApiCounterTypes.ADD_API, payload: 1});
         } catch (e) {
             console.log(e)
         }

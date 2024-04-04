@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addEuroAction } from '../../store/reducers/euroReducer';
 import { addDollarAction } from '../../store/reducers/dollarReducer';
 import { addYuanAction } from '../../store/reducers/yuanReducer';
-import { fetchApi } from '../../store/action-creator/apiCounter';
+import { getChartValues } from '../../store/action-creator/apiCounter';
 
 const CurrencyList: FC = () => {
     const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
@@ -19,19 +19,19 @@ const CurrencyList: FC = () => {
     function changeEuroChecked(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(addEuroAction(e.target.checked));
         if (rubRatesEuro.length === 0) {
-            dispatch(fetchApi(dates, euroRate))
+            dispatch(getChartValues(dates, euroRate))
         }
     }
     function changeDollarChecked (e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(addDollarAction(e.target.checked));
         if (rubRatesDollar.length === 0) {
-            dispatch(fetchApi(dates, dollarRate))
+            dispatch(getChartValues(dates, dollarRate))
         }
     }
     const changeYuanChecked= (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(addYuanAction(e.target.checked));
         if (rubRatesYuan.length === 0) {
-            dispatch(fetchApi(dates, yuanRate))
+            dispatch(getChartValues(dates, yuanRate))
         }
     }
 

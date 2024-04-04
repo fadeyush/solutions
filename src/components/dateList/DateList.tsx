@@ -54,17 +54,17 @@ const DateList:FC = () => {
         const dates = [];
         dates.push(new Date(date));
         resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
+        resultforFetch.push(`${date.getFullYear()}-${date.getMonth()+1 < 10 ? `0${date.getMonth()+1}`: date.getMonth()+1}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`)
         date.setDate(date.getDate() + 1);
 
         while (date <= endDate) {
-            
             resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
+            resultforFetch.push(`${date.getFullYear()}-${date.getMonth() +1 < 10 ? `0${date.getMonth()+1}`: date.getMonth()+1}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`);
             dates.push(new Date(date));
             date.setDate(date.getDate() + 1);
-    //     resultforFetch.push(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${countMonthDay + i < 10 ? `0${countMonthDay + i}` : countMonthDay + i}`);
         }
         dispatch({type: ChartTypes.ADD_LABELS, payload: resultforChart})
-        // dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
+        dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
     }, [startDay, endDay])
 
     return (
