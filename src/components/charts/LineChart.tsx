@@ -12,7 +12,6 @@ import {
   } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
-import {faker} from '@faker-js/faker';
 import { useDispatch } from 'react-redux';
 import { fetchApi } from '../../store/action-creator/apiCounter';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
@@ -28,10 +27,12 @@ ChartJS.register(
 
 const LineChart = () => {
   const {labels} = useTypedSelector(state => state.chartLabels);
-  const {isEuroChecked} = useTypedSelector(state => state.euro);
-  const {isDollarChecked} = useTypedSelector(state => state.dollar);
-  const {isYuanChecked} = useTypedSelector(state => state.yuan);
+  const {isEuroChecked, rubRatesEuro} = useTypedSelector(state => state.euro);
+  const {isDollarChecked, rubRatesDollar} = useTypedSelector(state => state.dollar);
+  const {isYuanChecked, rubRatesYuan} = useTypedSelector(state => state.yuan);
   const dispatch = useDispatch();
+
+  console.log(rubRatesEuro)
 
   useEffect(()=>{
     dispatch(fetchApi())

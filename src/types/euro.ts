@@ -1,14 +1,11 @@
-interface RubRateProps {
-    rubRate: number;
-}
-
 export interface EuroProps {
-    rubRatesEuro: RubRateProps[];
+    rubRatesEuro: number[];
     isEuroChecked: boolean;
 }
 
 export enum EuroTypes {
-    CHANGE_EURO_LINE_STATE = 'CHANGE_EURO_LINE_STATE'
+    CHANGE_EURO_LINE_STATE = 'CHANGE_EURO_LINE_STATE',
+    ADD_EURO_RUB_RATE = 'ADD_EURO_RUB_RATE',
 }
 
 interface EuroActionChecked {
@@ -16,4 +13,9 @@ interface EuroActionChecked {
     payload: boolean,
 }
 
-export type EuroAction = EuroActionChecked;
+interface EuroActionAdd {
+    type: EuroTypes.ADD_EURO_RUB_RATE;
+    payload: number,
+}
+
+export type EuroAction = EuroActionChecked | EuroActionAdd;

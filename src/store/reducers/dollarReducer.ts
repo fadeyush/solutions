@@ -9,6 +9,8 @@ export const dollarReducer = (state = inittialState, action:DollarAction): Dolla
     switch (action.type) {
         case DollarTypes.CHANGE_DOLLAR_LINE_STATE:
             return {...state, isDollarChecked: action.payload}
+        case DollarTypes.ADD_DOLLAR_RUB_RATE:
+                return {...state, rubRatesDollar: [...state.rubRatesDollar, action.payload]}
         default:
             return state
     }

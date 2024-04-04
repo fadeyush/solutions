@@ -1,14 +1,11 @@
-interface RubRateProps {
-    rubRate: number;
-}
-
 export interface DollarProps {
-    rubRatesDollar: RubRateProps[];
+    rubRatesDollar: number[];
     isDollarChecked: boolean;
 }
 
 export enum DollarTypes {
-    CHANGE_DOLLAR_LINE_STATE = 'CHANGE_DOLLAR_LINE_STATE'
+    CHANGE_DOLLAR_LINE_STATE = 'CHANGE_DOLLAR_LINE_STATE',
+    ADD_DOLLAR_RUB_RATE = 'ADD_DOLLAR_RUB_RATE',
 }
 
 interface DollarActionChecked {
@@ -16,4 +13,9 @@ interface DollarActionChecked {
     payload: boolean,
 }
 
-export type DollarAction = DollarActionChecked;
+interface DollarActionAdd {
+    type: DollarTypes.ADD_DOLLAR_RUB_RATE;
+    payload: number,
+}
+
+export type DollarAction = DollarActionChecked | DollarActionAdd;

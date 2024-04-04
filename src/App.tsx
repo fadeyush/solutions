@@ -7,7 +7,6 @@ import DateList from './components/dateList/DateList';
 
 function App() {
   const {count} = useTypedSelector(state => state.apiCounter);
-  const rubKey:string = 'rub';
   
   return (
     <div className={classes.App}>

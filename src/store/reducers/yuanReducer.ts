@@ -9,6 +9,8 @@ export const yuanReducer = (state = inittialState, action:YuanAction): YuanProps
     switch (action.type) {
         case YuanTypes.CHANGE_YUAN_LINE_STATE:
             return {...state, isYuanChecked: action.payload}
+        case YuanTypes.ADD_YUAN_RUB_RATE:
+                return {...state, rubRatesYuan: [...state.rubRatesYuan, action.payload]}
         default:
             return state
     }
