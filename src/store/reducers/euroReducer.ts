@@ -3,6 +3,7 @@ import { EuroAction, EuroProps, EuroTypes } from "../../types/euro";
 const inittialState: EuroProps = {
     rubRatesEuro: [],
     isEuroChecked: false,
+    euroRate: 'eur'
 }
 
 export const euroReducer = (state = inittialState, action:EuroAction): EuroProps => {

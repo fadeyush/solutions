@@ -1,6 +1,7 @@
 export interface EuroProps {
     rubRatesEuro: number[];
     isEuroChecked: boolean;
+    euroRate: string;
 }
 
 export enum EuroTypes {

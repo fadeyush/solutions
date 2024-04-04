@@ -3,6 +3,7 @@ import { YuanAction, YuanProps, YuanTypes } from "../../types/yuan";
 const inittialState: YuanProps = {
     rubRatesYuan: [],
     isYuanChecked: false,
+    yuanRate: 'cny'
 }
 
 export const yuanReducer = (state = inittialState, action:YuanAction): YuanProps => {

@@ -1,6 +1,7 @@
 export interface YuanProps {
     rubRatesYuan: number[];
     isYuanChecked: boolean;
+    yuanRate: string;
 }
 
 export enum YuanTypes {

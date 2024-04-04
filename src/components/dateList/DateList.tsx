@@ -7,6 +7,9 @@ const DateList:FC = () => {
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
     const dispatch = useDispatch();
+    const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
+    let resultforChart: string[] = [];
+    let resultforFetch: string[] = [];
     
     useEffect(()=>{
         const currentDate = new Date();
@@ -14,11 +17,8 @@ const DateList:FC = () => {
         const monthDay = currentDate.getDate();
         const weekDay = currentDate.getDay();
         const currentMonth = currentDate.getMonth() + 1;
-        const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
 
         let countMonthDay: number;
-        let resultforChart: string[] = [];
-        let resultforFetch: string[] = [];
         if (weekDay > 1) {
             countMonthDay = monthDay - (weekDay - 1);
         } else if (weekDay === 0) {
@@ -50,11 +50,7 @@ const DateList:FC = () => {
     useMemo(()=>{
         const startDate = new Date(startDay);
         const endDate = new Date(endDay);
-        let resultforChart: string[] = [];
-        let resultforFetch: string[] = [];
         const date = new Date(startDate.getTime());
-        
-        const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря']
         
         const dates = [];
         dates.push(new Date(date));

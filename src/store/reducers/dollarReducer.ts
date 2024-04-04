@@ -3,6 +3,7 @@ import { DollarAction, DollarProps, DollarTypes } from "../../types/dollar";
 const inittialState: DollarProps = {
     rubRatesDollar: [],
     isDollarChecked: false,
+    dollarRate: 'usd'
 }
 
 export const dollarReducer = (state = inittialState, action:DollarAction): DollarProps => {

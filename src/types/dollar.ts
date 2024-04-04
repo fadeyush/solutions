@@ -1,6 +1,7 @@
 export interface DollarProps {
     rubRatesDollar: number[];
     isDollarChecked: boolean;
+    dollarRate: string;
 }
 
 export enum DollarTypes {
