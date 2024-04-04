@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from './LineChart.module.scss';
 import {
     Chart as ChartJS,
@@ -12,8 +12,6 @@ import {
   } from 'chart.js';
 
 import { Line } from 'react-chartjs-2';
-import { useDispatch } from 'react-redux';
-import { fetchApi } from '../../store/action-creator/apiCounter';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
 ChartJS.register(
     CategoryScale,
@@ -27,15 +25,10 @@ ChartJS.register(
 
 const LineChart = () => {
   const {labels, dates} = useTypedSelector(state => state.chart);
-  const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
-  const {isDollarChecked, rubRatesDollar, dollarRate} = useTypedSelector(state => state.dollar);
-  const {isYuanChecked, rubRatesYuan, yuanRate} = useTypedSelector(state => state.yuan);
-  const dispatch = useDispatch();
+  const {isEuroChecked, rubRatesEuro} = useTypedSelector(state => state.euro);
+  const {isDollarChecked, rubRatesDollar} = useTypedSelector(state => state.dollar);
+  const {isYuanChecked, rubRatesYuan} = useTypedSelector(state => state.yuan);
 
-  useEffect(()=>{
-    dispatch(fetchApi(dates, euroRate))
-  }, [])
-  
     const options = {
         responsive: true,
         plugins: {
@@ -53,7 +46,7 @@ const LineChart = () => {
         datasets: [
           {
             label: '«Евро»',
-            data: [21, 3, 6, 7, 8],
+            data: rubRatesEuro,
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
             pointBorderColor: 'transparent',
@@ -62,7 +55,7 @@ const LineChart = () => {
           },
           {
             label: '«Доллар»',
-            data: [0,7,4,8],
+            data: rubRatesDollar,
             borderColor: 'rgb(53, 162, 0)',
             backgroundColor: 'rgba(53, 162, 0, 0.5)',
             usePointStyle: false,
@@ -72,7 +65,7 @@ const LineChart = () => {
           },
           {
             label: '«Юань»',
-            data: [-9,1,10,14],
+            data: rubRatesYuan,
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             usePointStyle: false,

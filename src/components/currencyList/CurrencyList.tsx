@@ -7,27 +7,38 @@ import { useDispatch } from 'react-redux';
 import { addEuroAction } from '../../store/reducers/euroReducer';
 import { addDollarAction } from '../../store/reducers/dollarReducer';
 import { addYuanAction } from '../../store/reducers/yuanReducer';
+import { fetchApi } from '../../store/action-creator/apiCounter';
 
 const CurrencyList: FC = () => {
-    const {isEuroChecked} = useTypedSelector(state => state.euro);
-    const {isDollarChecked} = useTypedSelector(state => state.dollar);
-    const {isYuanChecked} = useTypedSelector(state => state.yuan);
+    const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
+    const {isDollarChecked, rubRatesDollar, dollarRate} = useTypedSelector(state => state.dollar);
+    const {isYuanChecked, rubRatesYuan, yuanRate} = useTypedSelector(state => state.yuan);
+    const {dates} = useTypedSelector(state => state.chart);
     const dispatch = useDispatch();
 
     function changeEuroChecked(e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(addEuroAction(e.target.checked));
+        if (rubRatesEuro.length === 0) {
+            dispatch(fetchApi(dates, euroRate))
+        }
     }
     function changeDollarChecked (e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(addDollarAction(e.target.checked));
+        if (rubRatesDollar.length === 0) {
+            dispatch(fetchApi(dates, dollarRate))
+        }
     }
     const changeYuanChecked= (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(addYuanAction(e.target.checked));
+        if (rubRatesYuan.length === 0) {
+            dispatch(fetchApi(dates, yuanRate))
+        }
     }
 
     const currencyArr:CheckboxProps[] = [
-        {title: 'Евро', name: 'eur', isChecked: isEuroChecked, changeChecked: changeEuroChecked}, 
-        {title: 'Доллар', name: 'usd', isChecked: isDollarChecked, changeChecked: changeDollarChecked}, 
-        {title: 'Юань', name: 'cny', isChecked: isYuanChecked, changeChecked: changeYuanChecked}
+        {title: 'Евро', name: euroRate, isChecked: isEuroChecked, changeChecked: changeEuroChecked}, 
+        {title: 'Доллар', name: dollarRate, isChecked: isDollarChecked, changeChecked: changeDollarChecked}, 
+        {title: 'Юань', name: yuanRate, isChecked: isYuanChecked, changeChecked: changeYuanChecked}
     ];
     return (
         <ul className={classes.chart__currency}>
