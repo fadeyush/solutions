@@ -6,9 +6,9 @@ import { useTypedSelector } from '../../hooks/useTypedSelector';
 import { getChartValues } from '../../store/action-creator/apiCounter';
 
 const DateList:FC = () => {
-    const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
-    const {isDollarChecked, rubRatesDollar, dollarRate} = useTypedSelector(state => state.dollar);
-    const {isYuanChecked, rubRatesYuan, yuanRate} = useTypedSelector(state => state.yuan);
+    const {isEuroChecked, euroRate} = useTypedSelector(state => state.euro);
+    const {isDollarChecked, dollarRate} = useTypedSelector(state => state.dollar);
+    const {isYuanChecked, yuanRate} = useTypedSelector(state => state.yuan);
     const {dates} = useTypedSelector(state => state.chart);
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
@@ -46,7 +46,6 @@ const DateList:FC = () => {
     }, []);
     
     const changeStartDay = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(1)
         setStartDay(e.target.value);
     }
     const changeEndDay = (e: React.ChangeEvent<HTMLInputElement>) => {
