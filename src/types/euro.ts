@@ -16,7 +16,7 @@ interface EuroActionChecked {
 
 interface EuroActionAdd {
     type: EuroTypes.ADD_EURO_RUB_RATE;
-    payload: number,
+    payload: number[],
 }
 
 export type EuroAction = EuroActionChecked | EuroActionAdd;

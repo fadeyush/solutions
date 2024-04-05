@@ -11,7 +11,9 @@ export const euroReducer = (state = inittialState, action:EuroAction): EuroProps
         case EuroTypes.CHANGE_EURO_LINE_STATE:
             return {...state, isEuroChecked: action.payload}
         case EuroTypes.ADD_EURO_RUB_RATE:
-            return {...state, rubRatesEuro: [...state.rubRatesEuro, action.payload]}
+            
+        console.log(state.rubRatesEuro)
+            return {...state, rubRatesEuro: action.payload}
         default:
             return state
     }

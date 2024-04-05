@@ -2,20 +2,27 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import classes from './DateList.module.scss';
 import { useDispatch } from 'react-redux';
 import { ChartTypes } from '../../types/chart';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { getChartValues } from '../../store/action-creator/apiCounter';
+
 const DateList:FC = () => {
+    const {isEuroChecked, rubRatesEuro, euroRate} = useTypedSelector(state => state.euro);
+    const {isDollarChecked, rubRatesDollar, dollarRate} = useTypedSelector(state => state.dollar);
+    const {isYuanChecked, rubRatesYuan, yuanRate} = useTypedSelector(state => state.yuan);
+    const {dates} = useTypedSelector(state => state.chart);
     const [startDay, setStartDay] = useState<string>('');
     const [endDay, setEndDay] = useState<string>('');
     const dispatch = useDispatch();
     const monthNames = ['января', 'февраля', 'марта', 'апреля', 'мая', 'июня', 'июля', 'августа', 'сентября', 'октября', 'ноября', 'декабря'];
     let resultforChart: string[] = [];
     let resultforFetch: string[] = [];
-    
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+    const monthDay = currentDate.getDate();
+
     useEffect(()=>{
-        const currentDate = new Date();
-        const currentYear = currentDate.getFullYear();
-        const monthDay = currentDate.getDate();
         const weekDay = currentDate.getDay();
-        const currentMonth = currentDate.getMonth() + 1;
 
         let countMonthDay: number;
         if (weekDay > 1) {
@@ -27,9 +34,8 @@ const DateList:FC = () => {
         }
 
         let startDay = countMonthDay;
-        let endDay = countMonthDay + 6;
         setStartDay(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${startDay < 10 ? `0${startDay}` : startDay}`);
-        setEndDay(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${endDay < 10 ? `0${endDay}` : endDay}`);
+        setEndDay(`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${monthDay < 10 ? `0${monthDay}` : monthDay}`);
 
         for (let i = 0; i < 7; i++) {
             resultforChart.push(`${countMonthDay + i} ${monthNames[currentMonth]}`);
@@ -40,6 +46,7 @@ const DateList:FC = () => {
     }, []);
     
     const changeStartDay = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log(1)
         setStartDay(e.target.value);
     }
     const changeEndDay = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,8 +58,8 @@ const DateList:FC = () => {
         const endDate = new Date(endDay);
         const date = new Date(startDate.getTime());
         
-        const dates = [];
-        dates.push(new Date(date));
+        const datesArr = [];
+        datesArr.push(new Date(date));
         resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
         resultforFetch.push(`${date.getFullYear()}-${date.getMonth()+1 < 10 ? `0${date.getMonth()+1}`: date.getMonth()+1}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`)
         date.setDate(date.getDate() + 1);
@@ -60,12 +67,24 @@ const DateList:FC = () => {
         while (date <= endDate) {
             resultforChart.push(`${date.getDate()} ${monthNames[date.getMonth()]}`);
             resultforFetch.push(`${date.getFullYear()}-${date.getMonth() +1 < 10 ? `0${date.getMonth()+1}`: date.getMonth()+1}-${date.getDate() < 10 ? `0${date.getDate()}` : date.getDate()}`);
-            dates.push(new Date(date));
+            datesArr.push(new Date(date));
             date.setDate(date.getDate() + 1);
         }
         dispatch({type: ChartTypes.ADD_LABELS, payload: resultforChart})
         dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
     }, [startDay, endDay])
+
+    useMemo(()=>{
+        if (isEuroChecked) {
+            dispatch(getChartValues(dates, euroRate))
+        }
+        if (isDollarChecked) {
+            dispatch(getChartValues(dates, dollarRate))
+        }
+        if (isYuanChecked) {
+            dispatch(getChartValues(dates, yuanRate))
+        }
+    }, [dates])
 
     return (
         <ul className={classes.chart__date}>
@@ -78,7 +97,7 @@ const DateList:FC = () => {
             <li>
                 <label className={classes.chart__dateLabel}>
                     Дата по
-                    <input className={classes.chart__dateInput} type="date" value={endDay} onChange={changeEndDay}/>
+                    <input max={`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${monthDay < 10 ? `0${monthDay}` : monthDay}`} className={classes.chart__dateInput} type="date" value={endDay} onChange={changeEndDay}/>
                 </label>
             </li>
       </ul>

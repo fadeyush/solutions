@@ -8,6 +8,7 @@ import { YuanAction, YuanTypes } from "../../types/yuan";
 export const getChartValues = (dates:any[], currencie:string) => {
     return async (dispatch: Dispatch<ApiCounterAction | EuroAction | DollarAction | YuanAction>) => {
         try {
+            let arrforDispatch:number[] = [];
             let response;
             const dateNow = new Date();
             dates.forEach(async(date)=>{
@@ -15,14 +16,16 @@ export const getChartValues = (dates:any[], currencie:string) => {
                 if(dateCur<=dateNow) {
                     response = await getCurrencie(date, currencie);
                     const value:number = getRubValue(response, currencie)!;
-                    currencie === 'eur' ? 
-                    dispatch({type: EuroTypes.ADD_EURO_RUB_RATE, payload: value}) : 
-                    currencie === 'usd' ?
-                    dispatch({type: DollarTypes.ADD_DOLLAR_RUB_RATE, payload: value}) :
-                    dispatch({type: YuanTypes.ADD_YUAN_RUB_RATE, payload: value});
+                    arrforDispatch.push(value)
                     dispatch({type: ApiCounterTypes.ADD_API, payload: 1});
                 }
             });
+
+            currencie === 'eur' ? 
+            dispatch({type: EuroTypes.ADD_EURO_RUB_RATE, payload: arrforDispatch}) : 
+            currencie === 'usd' ?
+            dispatch({type: DollarTypes.ADD_DOLLAR_RUB_RATE, payload: arrforDispatch}) :
+            dispatch({type: YuanTypes.ADD_YUAN_RUB_RATE, payload: arrforDispatch});
         } catch (e) {
             console.log(e)
         }

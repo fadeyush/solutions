@@ -24,7 +24,7 @@ ChartJS.register(
 );
 
 const LineChart = () => {
-  const {labels, dates} = useTypedSelector(state => state.chart);
+  const {labels} = useTypedSelector(state => state.chart);
   const {isEuroChecked, rubRatesEuro} = useTypedSelector(state => state.euro);
   const {isDollarChecked, rubRatesDollar} = useTypedSelector(state => state.dollar);
   const {isYuanChecked, rubRatesYuan} = useTypedSelector(state => state.yuan);

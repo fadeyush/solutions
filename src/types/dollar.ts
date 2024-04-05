@@ -16,7 +16,7 @@ interface DollarActionChecked {
 
 interface DollarActionAdd {
     type: DollarTypes.ADD_DOLLAR_RUB_RATE;
-    payload: number,
+    payload: number[],
 }
 
 export type DollarAction = DollarActionChecked | DollarActionAdd;

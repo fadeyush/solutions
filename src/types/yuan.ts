@@ -16,7 +16,7 @@ interface YuanActionChecked {
 
 interface YuanActionAdd {
     type: YuanTypes.ADD_YUAN_RUB_RATE;
-    payload: number,
+    payload: number[],
 }
 
 export type YuanAction = YuanActionChecked | YuanActionAdd;

@@ -21,17 +21,27 @@ const CurrencyList: FC = () => {
         if (rubRatesEuro.length === 0) {
             dispatch(getChartValues(dates, euroRate))
         }
+        
+        if (rubRatesEuro.length !== 0 && !isEuroChecked) {
+            dispatch(getChartValues(dates, euroRate))
+        }
     }
     function changeDollarChecked (e: React.ChangeEvent<HTMLInputElement>) {
         dispatch(addDollarAction(e.target.checked));
         if (rubRatesDollar.length === 0) {
             dispatch(getChartValues(dates, dollarRate))
         }
+        if (rubRatesDollar.length !== 0 && !isDollarChecked) {
+            dispatch(getChartValues(dates, euroRate))
+        }
     }
     const changeYuanChecked= (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(addYuanAction(e.target.checked));
         if (rubRatesYuan.length === 0) {
             dispatch(getChartValues(dates, yuanRate))
+        }
+        if (rubRatesYuan.length !== 0 && !isYuanChecked) {
+            dispatch(getChartValues(dates, euroRate))
         }
     }
 
