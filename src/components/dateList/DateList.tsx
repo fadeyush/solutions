@@ -90,13 +90,13 @@ const DateList:FC = () => {
             <li>
                 <label className={classes.chart__dateLabel}>
                     Дата с
-                    <input className={classes.chart__dateInput} type="date" value={startDay} onChange={changeStartDay}/>
+                    <input min='2024-03-02' max={`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${monthDay < 10 ? `0${monthDay}` : monthDay}`} className={classes.chart__dateInput} type="date" value={startDay} onChange={changeStartDay}/>
                 </label>
             </li>
             <li>
                 <label className={classes.chart__dateLabel}>
                     Дата по
-                    <input max={`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${monthDay < 10 ? `0${monthDay}` : monthDay}`} className={classes.chart__dateInput} type="date" value={endDay} onChange={changeEndDay}/>
+                    <input min='2024-03-02' max={`${currentYear}-${currentMonth < 10 ? `0${currentMonth}`: currentMonth}-${monthDay < 10 ? `0${monthDay}` : monthDay}`} className={classes.chart__dateInput} type="date" value={endDay} onChange={changeEndDay}/>
                 </label>
             </li>
       </ul>
