@@ -52,7 +52,7 @@ const DateList:FC = () => {
         setEndDay(e.target.value);
     }
 
-    useMemo(()=>{
+    useEffect(()=>{
         const startDate = new Date(startDay);
         const endDate = new Date(endDay);
         const date = new Date(startDate.getTime());
@@ -71,9 +71,10 @@ const DateList:FC = () => {
         }
         dispatch({type: ChartTypes.ADD_LABELS, payload: resultforChart})
         dispatch({type: ChartTypes.ADD_DATES, payload: resultforFetch})
+
     }, [startDay, endDay])
 
-    useMemo(()=>{
+    useEffect(()=>{
         if (isEuroChecked) {
             dispatch(getChartValues(dates, euroRate))
         }
