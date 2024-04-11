@@ -6,7 +6,7 @@ import CurrencyList from './components/currencyList/CurrencyList';
 import DateList from './components/dateList/DateList';
 
 function App() {
-  const {count} = useTypedSelector(state => state.apiCounter);
+  // const {count} = useTypedSelector(state => state.apiCounter);
   
   return (
     <div className={classes.App}>
@@ -17,7 +17,7 @@ function App() {
         </div>
         <LineChart/>
       </div>
-      <p className={classes.chart__apiNumber}>Число запросов API: {count}</p>
+      {/* <p className={classes.chart__apiNumber}>Число запросов API: {count}</p> */}
     </div>
   );
 }
